@@ -1,0 +1,2 @@
+2016-11-20/22:23:50 [@local/src/awesomeOrder/utils.ParseConfig parseconf.go:23] [ERR]: open test.yaml err:open test.yaml: no such file or directory
+2016-11-20/22:24:36 [@local/src/awesomeOrder/utils.ParseConfig parseconf.go:23] [ERR]: open test.yaml err:open test.yaml: no such file or directory

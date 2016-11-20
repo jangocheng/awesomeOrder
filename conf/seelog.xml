@@ -1,0 +1,17 @@
+<seelog minlevel="trace">
+    <outputs formatid="common">
+        <console/>
+        <rollingfile type="size" filename="~/home/logs/roll.log" maxsize="100000" maxrolls="5"/>
+        <filter levels="critical">
+            <file path="~/home/logs/critical.log" formatid="critical"/>
+            <smtp formatid="criticalemail" senderaddress="tatumnzhang@163.com" sendername="auto send" hostname="smtp.163.com" hostport="25" username="tatumnzhang" password="Ilove1003" subject="test">
+                <recipient address="tatumnzhang@126.com"/>
+            </smtp>
+        </filter>
+    </outputs>
+    <formats>
+        <format id="common" format="%Date/%Time [@%Func %File:%Line] [%LEV]: %Msg%n" />
+        <format id="critical" format="%File %FullPath %Func %Line:%Msg%n" />
+        <format id="criticalemail" format="Critical error on our server!\n    %Time %Date %RelFile %Func %Msg \nSent by Seelog"/>
+    </formats>
+</seelog>
