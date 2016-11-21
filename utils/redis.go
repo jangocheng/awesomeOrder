@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var client *redis.Client
+var client *redis.Client = nil
 
 func GetRedisClient() *redis.Client {
 	if client == nil {
@@ -15,21 +15,27 @@ func GetRedisClient() *redis.Client {
 	return client
 }
 
-func RedisNewClient(addr, pwd string, dbindex int) {
+func RedisNewClient(addr, pwd string, dbindex int) (*redis.Client, error) {
 	clienttmp := redis.NewClient(&redis.Options{
 		Addr:     addr,
 		Password: pwd,
 		DB:       dbindex,
 	})
+	i := 0
 	for {
-		_, err := client.Ping().Result()
+		if i > 30 {
+			return nil, fmt.Errorf("can't ping redis server addr:%v,pwd:%v,dbindex:%v", addr, pwd, dbindex)
+		}
+		_, err := clienttmp.Ping().Result()
 		if err != nil {
 			fmt.Println("redis new client err:", err.Error())
 			time.Sleep(1 * time.Second)
+			i++
 			continue
 		} else {
 			break
 		}
 	}
 	client = clienttmp
+	return clienttmp, nil
 }

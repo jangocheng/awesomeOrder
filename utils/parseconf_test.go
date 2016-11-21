@@ -10,15 +10,15 @@ var m1 = make(map[string]interface{})
 
 func TestParse(t *testing.T) {
 	if _, err := ParseConfig("test.yaml"); err == nil {
-		fmt.Println(err)
+		t.Error(err)
 		return
 	}
 	if _,err:=ParseConfig("");err!=nil{
-		fmt.Println(err)
+		t.Error(err)
 		return
 	}
 	if _,err:=ParseConfig("../conf/awesome.yaml");err!=nil {
-		fmt.Println(err)
+		t.Error(err)
 		return
 	}
 	fmt.Println(AwesomeConfig["redis"])
